@@ -2,6 +2,7 @@
 <html lang="fr">
 
 <head>
+    <script src = 'jquery-1.4.3.min.js'></script>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">

@@ -1,3 +1,35 @@
+ <script type="text/javascript">
+        $(function(){
+
+            $('.form_group').submit(function(){
+
+               if($('#login').val()=='')
+               {
+                $(".nom").html("Veuillez remplir Le champs login");
+                $(".nom").addClass("alert alert-danger");
+                $(".nom").removeClass("hidden");
+            return false;
+               }
+               else if($('#password').val()=='')
+               {
+                $(".nom").html("Veuillez remplir Le champs Mot de passe");
+                $(".nom").addClass("alert alert-danger");
+                $(".nom").removeClass("hidden");
+               return false;
+               }
+               else
+                return true;
+            });
+
+
+
+
+        });
+
+
+        </script>
+
+
 <?php
 	include('includes/connexion.inc.php');
 	?>
@@ -33,11 +65,11 @@ $password=md5($_POST['password']);
 $stmt = $pdo->query($query);
 if($data=$stmt->fetch())
 {
-    $id=$data['id'];
+    $id=$data['id_utilis'];
 $sid=md5($_POST['login'].$_POST['password'].time());
 setcookie("sessioncookies",$sid);
 
-$query = 'UPDATE  utilisateur SET sid=:sid where id= :id';
+$query = 'UPDATE  utilisateur SET sid=:sid where id_utilis= :id';
     $prep = $pdo->prepare($query);
     $prep->bindValue(':sid',$sid);
     $prep->bindValue(':id', $id);
@@ -66,23 +98,27 @@ else {
 
 
 
-<form method="post" action="">
+<form method="post" classe="form" action="">
 
     <legend>Connexion au Panel</legend>
 
     <div class="form-group">
       <label class="col-lg-2 control-label">Login</label>
       <div class="col-lg-10">
-        <input type="text" class="form-control" name="login" placeholder="Login">
+        <input type="text" class="form-control" name="login" id="login" placeholder="Login">
       </div>
     </div><br/><br/><br/>
 
     <div class="form-group">
       <label class="col-lg-2 control-label">Mot de passe</label>
       <div class="col-lg-10">
-        <input type="password" class="form-control" name="password" placeholder="Mot de passe">
+        <input type="password" class="form-control" name="password" id="password" placeholder="Mot de passe">
       </div>
     </div>
 
 <br/><br/><center><button type="submit" name="submit" class="btn btn-primary">Connexion</button></center>
+<div classe="nom hidden"> 
+</div>
 </form>
+<body>
+
