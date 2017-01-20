@@ -46,22 +46,30 @@ if ($connecter==true)
 
 <?php
 
+
 $page = (!empty($_GET['page']) ? $_GET['page'] : 1);
 $limite = 2;
 $debut = ($page - 1) * $limite;
-$query = 'SELECT count(*) as nb FROM messages ';
+
+if(isset($_POST['saisie']) && !empty($_POST['saisie']))
+$saisie =$_POST['saisie'];
+else
+    $saisie ='';
+
+$query = "SELECT count(*) as nb FROM messages where contenu like '%".$saisie."%'";
     $stmt = $pdo->query($query);
     while( $data=$stmt->fetch())
     {
         $count=$data['nb'];
     }
-$nbpage= $count/$limite;    
-$query = 'SELECT * FROM messages ORDER BY date DESC LIMIT :limite OFFSET :debut ';
-$stmt = $pdo->prepare($query);
-$stmt->bindValue(':limite',$limite,PDO::PARAM_INT);
-$stmt->bindValue('debut', $debut, PDO::PARAM_INT);
-$stmt->execute();
-while ($data = $stmt->fetch()) {
+$nbpage= ceil($count/$limite); 
+   
+$query = "SELECT * FROM messages m inner join utilisateur u on m.user_id = u.id_utilis where m.contenu like '%".$saisie."%' ORDER BY date DESC LIMIT :limite OFFSET :debut";
+$prep = $pdo->prepare($query);
+$prep->bindValue(':limite',$limite,PDO::PARAM_INT);
+$prep->bindValue(':debut', $debut, PDO::PARAM_INT);
+$prep->execute();
+while ($data = $prep->fetch()) {
 	?>
 	<blockquote>
 		<?= $data['contenu'] ?>
@@ -95,7 +103,8 @@ if ($connecter==true)
 <?php
 }
 ?>
-<?php   
+<?php 
+
     if ($page > 1):
     ?> 
   

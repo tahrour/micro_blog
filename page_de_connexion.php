@@ -1,33 +1,9 @@
- <script type="text/javascript">
-        $(function(){
-
-            $('.form_group').submit(function(){
-
-               if($('#login').val()=='')
-               {
-                $(".nom").html("Veuillez remplir Le champs login");
-                $(".nom").addClass("alert alert-danger");
-                $(".nom").removeClass("hidden");
-            return false;
-               }
-               else if($('#password').val()=='')
-               {
-                $(".nom").html("Veuillez remplir Le champs Mot de passe");
-                $(".nom").addClass("alert alert-danger");
-                $(".nom").removeClass("hidden");
-               return false;
-               }
-               else
-                return true;
-            });
+<?php
+include('includes/haut.inc.php');?>
 
 
 
 
-        });
-
-
-        </script>
 
 
 <?php
@@ -76,14 +52,7 @@ $query = 'UPDATE  utilisateur SET sid=:sid where id_utilis= :id';
     $prep->execute();
 	
 }
-    echo" Vous êtes  déconnecté"; 
-    
-    echo '<div class="alert alert-dismissable alert-success">
-  <button type="button" class="close" data-dismiss="alert">×</button>
-  <strong>Yes !</strong> Vous etes bien logué, Redirection dans 5 secondes ! <meta http-equiv="refresh" content="5; URL=dashboard">
-</div>';
-    // ici vous pouvez afficher un lien pour renvoyer
-    // vers la page d'accueil de votre espace membres 
+
 	header("location:index.php");
   }    
 }
@@ -98,27 +67,52 @@ else {
 
 
 
-<form method="post" classe="form" action="">
+<form method="post" class="form" action="page_de_connexion.php">
 
-    <legend>Connexion au Panel</legend>
+    <legend>Connexion au Blog</legend>
 
     <div class="form-group">
       <label class="col-lg-2 control-label">Login</label>
       <div class="col-lg-10">
-        <input type="text" class="form-control" name="login" id="login" placeholder="Login">
+        <input type="text" class="form-control" name="login" id="login" placeholder="Votre Login">
       </div>
     </div><br/><br/><br/>
 
     <div class="form-group">
-      <label class="col-lg-2 control-label">Mot de passe</label>
+      <label class="col-lg-2 control-label"> Mot de passe</label>
       <div class="col-lg-10">
-        <input type="password" class="form-control" name="password" id="password" placeholder="Mot de passe">
+        <input type="password" class="form-control" name="password" id="password" placeholder="Votre mot de passe">
       </div>
     </div>
 
 <br/><br/><center><button type="submit" name="submit" class="btn btn-primary">Connexion</button></center>
-<div classe="nom hidden"> 
-</div>
+<div class="nom hidden"></div>
 </form>
-<body>
+   <script type="text/javascript">
+        $(function(){
+
+            $('.form').submit(function(){
+
+               if($('#login').val()=='')
+               {
+                $(".nom").html("Veuillez remplir Le champs login");
+                $(".nom").addClass("alert alert-danger");
+                $(".nom").removeClass("hidden");
+            return false;
+               }
+               else if($('#password').val()=='')
+               {
+                $(".nom").html("Veuillez remplir Le champs Mot de passe");
+                $(".nom").addClass("alert alert-danger");
+                $(".nom").removeClass("hidden");
+               return false;
+               }
+               else
+                return true;
+            });
+        });
+        </script>
+  <?php
+include('includes/bas.inc.php');
+  ?>
 
