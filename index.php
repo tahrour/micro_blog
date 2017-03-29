@@ -1,134 +1,81 @@
 <?php
 include('includes/connexion.inc.php');
-include('includes/haut.inc.php');
-?>
-<?php
-$id=0;
+require 'libs/Smarty.class.php';
 
+$smarty = new Smarty;
+//Modification
+$getid=0;
+$message='';
+$rechercher='';
 if (isset($_GET['id']) && !empty($_GET['id'])) 
 {
+   
+    $getid=$_GET['id'];
 $query = 'SELECT * FROM messages where id='.$_GET['id'];
     $stmt = $pdo->query($query);
     while( $data=$stmt->fetch())
     {
-        $id=$data['id'];
+        $getid=$data['id'];
         $message=$data['contenu'];
-        $date=$data['date'];
         
     }
+
+
 }
-?>
 
-<?php
-if ($connecter==true)
-{
-?>
-<div class="row">              
-    <form method="post"  action="message.php">
-        <div class="col-sm-10">  
-            <div class="form-group">
-                <textarea id="message" name="message" class="form-control" placeholder="Message"><?php if(!empty($message)) echo $message;?></textarea>
-				<input type="hidden" name ="id" value="<?php echo $id ;?>"></input>
-            </div>
-        </div>
-        <div class="col-sm-2">
-            <button type="submit" class="btn btn-success btn-lg">Envoyer</button>
-        </div> 
-		</form>
-		</div>
-		<?php
-          }
-?>
-
-
-
-
-
-<?php
-
-
+//Affichage Pagination
 $page = (!empty($_GET['page']) ? $_GET['page'] : 1);
-$limite = 2;
+$limite = 4;
 $debut = ($page - 1) * $limite;
 
-if(isset($_POST['saisie']) && !empty($_POST['saisie']))
-$saisie =$_POST['saisie'];
-else
-    $saisie ='';
+//affichage ça depend de la zone de recherche
+if(isset($_POST['rechercher']) && !empty($_POST['rechercher'])  )
+        
+         $rechercher =$_POST['rechercher'];
 
-$query = "SELECT count(*) as nb FROM messages where contenu like '%".$saisie."%'";
+
+//selection de nombre de page
+$query = "SELECT count(*) as nb FROM messages where contenu like '%".$rechercher."%'";
     $stmt = $pdo->query($query);
     while( $data=$stmt->fetch())
     {
         $count=$data['nb'];
     }
 $nbpage= ceil($count/$limite); 
-   
-$query = "SELECT * FROM messages m inner join utilisateur u on m.user_id = u.id_utilis where m.contenu like '%".$saisie."%' ORDER BY date DESC LIMIT :limite OFFSET :debut";
+//Affichage des messages   
+
+$query = "SELECT * FROM messages m inner join utilisateur u on m.user_id = u.id_utilis 
+where m.contenu like '%".$rechercher."%' ORDER BY date DESC LIMIT :limite OFFSET :debut";
 $prep = $pdo->prepare($query);
 $prep->bindValue(':limite',$limite,PDO::PARAM_INT);
 $prep->bindValue(':debut', $debut, PDO::PARAM_INT);
 $prep->execute();
-while ($data = $prep->fetch()) {
-	?>
-	<blockquote>
-		<?= $data['contenu'] ?>
-	</blockquote>
-			<div class="row"> 		
-<?php
-if ($connecter==true)
-{
-?>
-<div class="col-sm-2">
-            <a href="supprimer.php?id=<?=$data['id']?>" > Supprimer</a>
-			
-
-	
-            
-
-        </div>                
-		<div class="col-sm-2">
-             <a href="index.php?id=<?=$data['id']?>" > Modifier</a>
-
-        </div>  
-<?php
-}
-?>
-		<div class="col-sm-2">
-			<?= date('d/m/Y H:i:s',$data['date']) ?>
-		</div>
-
-		
-    </div>
-<?php
-}
-?>
-<?php 
-
-    if ($page > 1):
-    ?> 
-  
-      <a class="page-link" href="?page=<?php echo $page - 1; ?>" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-     
-      </a> <?php
-endif;
-for ($i = 1; $i <= $nbpage+1; $i++):
-    ?>
-    <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
-    <?php
-endfor;
-if ($page < $nbpage):
-    ?>
-  
-      <a class="page-link" href="?page=<?php echo $page + 1; ?>" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-        
-      </a>
- <?php
-endif;
-?>
+  $list =array();
+    $i=0;
+while ($data = $prep->fetch())
+ {
+        $list[$i]['id']=$data['id'];
+        $list[$i]['contenu']=$data['contenu'];
+        $list[$i]['date']=date("d/m/Y H:i:s",$data['date']);
+        $list[$i]['pseudo']=$data['pseudo'];
 
 
 
-<?php include('includes/bas.inc.php'); ?>
+
+        $re =array('/^[a-zA-Z0-9\s]*[\s]*([a-zA-Z0-9_-]*(\.[a-zA-Z0-9_-]+)*\@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}$)/','/^[a-zA-Z0-9\s]*[\s]*(http|https|ftp):\/\/([a-zA-Z0-9_]+)*\.(com|net|org|biz|info|mobi|us|cc|bz|tv|ws|name|co|me)$/','/^[a-zA-Z0-9\s]*[\s]*#([\w|.]+)/');
+        $str = $list[$i]['contenu'];
+        $replace = array('<a href="mailto:$0">$0</a>','<a href="$1">lien vers: $1</a>','<a href="index.php?rechercher=$1">$0</a>');
+        $list[$i]['contenu'] = preg_replace($re,$replace,$str);
+
+
+        $i++;
+ }
+$smarty ->assign('connecter',$connecter);
+$smarty-> assign('list',$list);
+$smarty -> assign(array('message' => $message,'getid'=>$getid));
+$smarty ->assign(array('page'=>$page,'nbpage'=>$nbpage));
+
+$smarty ->display("index.tpl");
+
+
+ ?>

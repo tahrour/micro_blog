@@ -1,5 +1,5 @@
 <?php
-include('includes/haut.inc.php');?>
+include('includes/haut.inc.tpl');?>
 
 
 
@@ -113,6 +113,6 @@ else {
         });
         </script>
   <?php
-include('includes/bas.inc.php');
+include('includes/bas.inc.tpl');
   ?>
 
