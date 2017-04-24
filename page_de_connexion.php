@@ -1,21 +1,12 @@
 <?php
 include('includes/haut.inc.tpl');?>
-
-
-
-
-
-
 <?php
 	include('includes/connexion.inc.php');
 	?>
 	<?php
 // pour détruire complètement la session, on efface également
 // le cookie de session.
-
    setcookie("sessioncookies",'', time() +500);
-
-
 // on se connecte à MySQL 
 $db = mysql_connect('localhost', 'root'); 
 mysql_select_db('micro_blog',$db); 
@@ -32,8 +23,7 @@ $password=md5($_POST['password']);
   <strong>Oh Non !</strong> Mauvais login / password. Merci de recommencer !
 </div>';
   }
-  
-  else {
+    else {
     session_start();
     $_SESSION['login'] = $login;
 	session_destroy();  
@@ -44,55 +34,39 @@ if($data=$stmt->fetch())
     $id=$data['id_utilis'];
 $sid=md5($_POST['login'].$_POST['password'].time());
 setcookie("sessioncookies",$sid);
-
 $query = 'UPDATE  utilisateur SET sid=:sid where id_utilis= :id';
     $prep = $pdo->prepare($query);
     $prep->bindValue(':sid',$sid);
     $prep->bindValue(':id', $id);
     $prep->execute();
-	
-}
-
-	header("location:index.php");
+	}
+header("location:index.php");
   }    
 }
 else {
   $champs = '<p><b>(Remplissez tous les champs pour vous connectez !)</b></p>';
 }
-
-
 ?>
-
-
-
-
-
 <form method="post" class="form" action="page_de_connexion.php">
-
     <legend>Connexion au Blog</legend>
-
     <div class="form-group">
       <label class="col-lg-2 control-label">Login</label>
       <div class="col-lg-10">
         <input type="text" class="form-control" name="login" id="login" placeholder="Votre Login">
       </div>
     </div><br/><br/><br/>
-
     <div class="form-group">
       <label class="col-lg-2 control-label"> Mot de passe</label>
       <div class="col-lg-10">
         <input type="password" class="form-control" name="password" id="password" placeholder="Votre mot de passe">
       </div>
     </div>
-
 <br/><br/><center><button type="submit" name="submit" class="btn btn-primary">Connexion</button></center>
 <div class="nom hidden"></div>
 </form>
    <script type="text/javascript">
         $(function(){
-
             $('.form').submit(function(){
-
                if($('#login').val()=='')
                {
                 $(".nom").html("Veuillez remplir Le champs login");

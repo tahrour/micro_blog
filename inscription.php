@@ -1,8 +1,5 @@
 <?php
 include('includes/haut.inc.tpl');?>
-
-
-
 <?php
 	include('includes/connexion.inc.php');
 	?>
@@ -26,7 +23,6 @@ $password=md5($_POST['password']);
   <strong>Oh Non !</strong> cet utilisateur existe déjà. Merci de recommencer !
 </div>';
   }
-  
   else { 
 $query = 'INSERT INTO utilisateur (email,mdp,nom,prenom,pseudo) VALUES (:email,:mdp,:nom,:prenom,:pseudo)';
             $prep = $pdo->prepare($query);
@@ -42,17 +38,8 @@ $query = 'INSERT INTO utilisateur (email,mdp,nom,prenom,pseudo) VALUES (:email,:
 else {
   $champs = '<p><b>(Remplissez tous les champs pour vous connectez !)</b></p>';
 }
-
-
 ?>
-
-
-
-
-
 <form method="post" classe="form" action="">
-
-    
      <legend>Inscription au Blog</legend>
     <div class="form-group">
       <label class="col-lg-2 control-label">Login</label>
@@ -79,14 +66,10 @@ else {
         <input type="text" class="form-control" name="pseudo" id="Pseudo" placeholder="Pseudo">
       </div>
     </div>
-    
-
-<br/><br/><center><button type="submit" name="submit" class="btn btn-primary">inscription</button></center>
+    <br/><br/><center><button type="submit" name="submit" class="btn btn-primary">inscription</button></center>
 <div classe="nom hidden"> 
 </div>
 </form>
-
 <body>
-
   <?php
 include('includes/bas.inc.tpl');?>
