@@ -2,7 +2,7 @@
 include('includes/connexion.inc.php');
 require 'libs/Smarty.class.php';
 
-$smarty = new Smarty;
+$blogsmarty = new Smarty;
 //Modification
 $getid=0;
 $message='';
@@ -12,7 +12,7 @@ if (isset($_GET['id']) && !empty($_GET['id']))
    
     $getid=$_GET['id'];
 $query = 'SELECT * FROM messages where id='.$_GET['id'];
-    $stmt = $pdo->query($query);
+    $stmt = $pdo->query($blogquery);
     while( $data=$stmt->fetch())
     {
         $getid=$data['id'];
@@ -70,12 +70,12 @@ while ($data = $prep->fetch())
 
         $i++;
  }
-$smarty ->assign('connecter',$connecter);
-$smarty-> assign('list',$list);
-$smarty -> assign(array('message' => $message,'getid'=>$getid));
-$smarty ->assign(array('page'=>$page,'nbpage'=>$nbpage));
+$blogsmarty ->assign('connecter',$connecter);
+$blogsmarty-> assign('list',$list);
+$blogsmarty -> assign(array('message' => $message,'getid'=>$getid));
+$blogsmarty ->assign(array('page'=>$page,'nbpage'=>$nbpage));
 
-$smarty ->display("index.tpl");
+$blogsmarty ->display("index.tpl");
 
 
  ?>

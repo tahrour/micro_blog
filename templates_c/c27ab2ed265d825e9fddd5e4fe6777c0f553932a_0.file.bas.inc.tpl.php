@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2017-03-29 14:07:08
+/* Smarty version 3.1.30, created on 2017-03-31 18:13:11
   from "C:\Program Files (x86)\EasyPHP-12.1\www\my portable files\micro_blog_Smarty\includes\bas.inc.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_58dba36c31ece8_56782859',
+  'unifunc' => 'content_58de801786e131_93879898',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'c27ab2ed265d825e9fddd5e4fe6777c0f553932a' => 
     array (
       0 => 'C:\\Program Files (x86)\\EasyPHP-12.1\\www\\my portable files\\micro_blog_Smarty\\includes\\bas.inc.tpl',
-      1 => 1489932161,
+      1 => 1490976788,
       2 => 'file',
     ),
   ),
@@ -20,10 +20,9 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_58dba36c31ece8_56782859 (Smarty_Internal_Template $_smarty_tpl) {
+function content_58de801786e131_93879898 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
-
-        </div>
+</div>
     </section>
 
 
@@ -38,7 +37,8 @@ function content_58dba36c31ece8_56782859 (Smarty_Internal_Template $_smarty_tpl)
                             <br>Beverly Hills, CA 90210</p>
                     </div>
                     <div class="footer-col col-md-4">
-                        
+                    <a class="icon facebook" href="facebook.com" ></a>
+                     <a class="icon twitter"  href="twitter.com"  ></a>
                     </div>
                     <div class="footer-col col-md-4">
                         <h3>A propos</h3>
@@ -58,32 +58,9 @@ function content_58dba36c31ece8_56782859 (Smarty_Internal_Template $_smarty_tpl)
         </div>
     </footer>
 
-    <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
-    <div class="scroll-top page-scroll hidden-sm hidden-xs hidden-lg hidden-md">
-        <a class="btn btn-primary" href="#page-top">
-            <i class="fa fa-chevron-up"></i>
-        </a>
-    </div>
+    
 
-    <!-- jQuery -->
-    <?php echo '<script'; ?>
- src="vendor/jquery/jquery.min.js"><?php echo '</script'; ?>
->
-
-    <!-- Bootstrap Core JavaScript -->
-    <?php echo '<script'; ?>
- src="vendor/bootstrap/js/bootstrap.min.js"><?php echo '</script'; ?>
->
-
-    <!-- Plugin JavaScript -->
-    <?php echo '<script'; ?>
- src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"><?php echo '</script'; ?>
->
-
-    <!-- Theme JavaScript -->
-    <?php echo '<script'; ?>
- src="js/freelancer.min.js"><?php echo '</script'; ?>
->
+    
 
 </body>
 

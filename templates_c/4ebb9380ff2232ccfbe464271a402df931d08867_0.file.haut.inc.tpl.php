@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2017-03-29 14:07:08
+/* Smarty version 3.1.30, created on 2017-03-31 18:08:12
   from "C:\Program Files (x86)\EasyPHP-12.1\www\my portable files\micro_blog_Smarty\includes\haut.inc.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_58dba36c2e5cc7_05036190',
+  'unifunc' => 'content_58de7eec4ce9e9_49726325',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '4ebb9380ff2232ccfbe464271a402df931d08867' => 
     array (
       0 => 'C:\\Program Files (x86)\\EasyPHP-12.1\\www\\my portable files\\micro_blog_Smarty\\includes\\haut.inc.tpl',
-      1 => 1489932132,
+      1 => 1490798614,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_58dba36c2e5cc7_05036190 (Smarty_Internal_Template $_smarty_tpl) {
+function content_58de7eec4ce9e9_49726325 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <!DOCTYPE html>
 
